@@ -1,0 +1,26 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local environment and generated data
+.env
+.env.*
+!.env.example
+data/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
