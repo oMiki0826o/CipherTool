@@ -4,6 +4,12 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 
+[中文](#中文) | [English](#english)
+
+---
+
+## 中文
+
 ## 關於
 
 CipherTool 是一個使用 Python 製作的輕量工具，目標是提供古典密碼、常用編碼、進位轉換與文字轉換功能，適合學習、歷史研究、解題與一般文字處理。
@@ -27,3 +33,31 @@ python main.py
 ## 授權
 
 本專案採用 MIT License，詳見 [LICENSE](./LICENSE)。
+
+---
+
+## English
+
+### About
+
+CipherTool is a lightweight Python tool for classical ciphers, common encodings, number-base conversion, and text conversion. It is intended for learning, historical research, puzzle solving, and general text processing.
+
+### Current status
+
+The project is currently in its foundation stage. Caesar Cipher core functions and tests are available; additional algorithms, conversions, and the Tkinter GUI will be added incrementally.
+
+### Install and run
+
+Python 3.10 or newer is required. No third-party runtime dependencies are currently needed.
+
+```bash
+python main.py
+```
+
+### Security notice
+
+This project is not a modern cryptography library. Caesar, Vigenère, ROT13, Base64, Morse, and similar features are not suitable for protecting passwords, personal data, tokens, keys, or other sensitive information.
+
+### License
+
+This project is licensed under the MIT License. See [LICENSE](./LICENSE).
