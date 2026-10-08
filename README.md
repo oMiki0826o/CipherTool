@@ -14,9 +14,12 @@
 
 CipherTool 是一個使用 Python 製作的輕量工具，目標是提供古典密碼、常用編碼、進位轉換與文字轉換功能，適合學習、歷史研究、解題與一般文字處理。
 
-## 目前狀態
+## 功能
 
-專案目前處於基礎建置階段，核心演算法與 Tkinter GUI 將依實作規範逐步加入。
+- 古典密碼：Caesar、ROT13、Atbash、Affine、Vigenère、Simple Substitution、Pigpen、Rail Fence、Playfair、Bacon。
+- 編碼：Base16、Base32、Base64、Morse、URL Encoding。
+- 轉換：2～36 進位、UTF-8 Text ↔ Binary、Text ↔ Hex、Text ↔ ASCII、Unicode Code Point。
+- Tkinter 圖形介面：依類型與方法顯示模式和參數，支援執行、複製與清除。
 
 ## 安裝與啟動
 
@@ -25,6 +28,8 @@ CipherTool 是一個使用 Python 製作的輕量工具，目標是提供古典�
 ```bash
 python main.py
 ```
+
+也可以安裝成套件後使用 `ciphertool` 指令。
 
 ## 安全性提醒
 
@@ -42,9 +47,12 @@ python main.py
 
 CipherTool is a lightweight Python tool for classical ciphers, common encodings, number-base conversion, and text conversion. It is intended for learning, historical research, puzzle solving, and general text processing.
 
-### Current status
+### Features
 
-The project is currently in its foundation stage. Caesar Cipher core functions and tests are available; additional algorithms, conversions, and the Tkinter GUI will be added incrementally.
+- Classical ciphers: Caesar, ROT13, Atbash, Affine, Vigenère, Simple Substitution, Pigpen, Rail Fence, Playfair, and Bacon.
+- Encodings: Base16, Base32, Base64, Morse, and URL Encoding.
+- Conversions: bases 2 through 36, UTF-8 Text ↔ Binary, Text ↔ Hex, Text ↔ ASCII, and Unicode code points.
+- Tkinter GUI with dynamic tool parameters, execute, copy, and clear actions.
 
 ### Install and run
 
@@ -53,6 +61,8 @@ Python 3.10 or newer is required. No third-party runtime dependencies are curren
 ```bash
 python main.py
 ```
+
+After installing the package, the `ciphertool` command is also available.
 
 ### Security notice
 
