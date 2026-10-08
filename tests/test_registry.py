@@ -1,0 +1,26 @@
+"""Test the registry dispatch interface used by the GUI."""
+
+import unittest
+
+from cipher_tool.registry import run_tool
+
+
+class RegistryTest(unittest.TestCase):
+    """Verify registered tools dispatch to their public module APIs."""
+
+    def test_dispatches_cipher_with_parameters(self) -> None:
+        """Registry passes string GUI parameters to Caesar correctly."""
+        self.assertEqual(run_tool("caesar", "encrypt", "ABC", {"shift": "3"}), "DEF")
+
+    def test_dispatches_number_conversion(self) -> None:
+        """Registry keeps numeric base conversion separate from text hex."""
+        self.assertEqual(run_tool("number_base", "convert", "255", {"from_base": "10", "to_base": "16"}), "FF")
+
+    def test_rejects_unknown_tool(self) -> None:
+        """Unknown tool identifiers do not silently fall through."""
+        with self.assertRaises(ValueError):
+            run_tool("unknown", "encode", "text", {})
+
+
+if __name__ == "__main__":
+    unittest.main()
