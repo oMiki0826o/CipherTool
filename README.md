@@ -31,6 +31,8 @@ python main.py
 
 也可以安裝成套件後使用 `ciphertool` 指令。
 
+詳細原理與格式規則請見 [docs/README.md](./docs/README.md)。
+
 ## 安全性提醒
 
 本專案不是現代密碼學函式庫。Caesar、Vigenère、ROT13、Base64、Morse 等功能不適合保護密碼、個資、Token、金鑰或其他敏感資料。
@@ -63,6 +65,8 @@ python main.py
 ```
 
 After installing the package, the `ciphertool` command is also available.
+
+See [docs/README.md](./docs/README.md) for format rules and learning notes.
 
 ### Security notice
 
