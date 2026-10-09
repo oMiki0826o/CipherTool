@@ -18,6 +18,14 @@ PARAMETER_LABELS = {
 }
 
 
+def tool_id_from_name(name: str) -> str:
+    """Resolve a GUI display name to its registered tool identifier."""
+    for tool_id, tool in TOOLS.items():
+        if tool["name"] == name:
+            return tool_id
+    raise ValueError("找不到指定工具。")
+
+
 class CipherToolApp(ttk.Frame):
     """Render and coordinate CipherTool's single-window interface."""
 
@@ -83,14 +91,14 @@ class CipherToolApp(ttk.Frame):
 
     def _refresh_tools(self) -> None:
         """Show only the methods in the selected category."""
-        choices = [tool_id for tool_id, tool in TOOLS.items() if tool["category"] == self.category_value.get()]
+        choices = [tool["name"] for tool in TOOLS.values() if tool["category"] == self.category_value.get()]
         self.tool_box["values"] = choices
         self.tool_value.set(choices[0])
         self._refresh_tool_details()
 
     def _refresh_tool_details(self) -> None:
         """Update modes and parameter entries for the selected tool."""
-        tool = TOOLS[self.tool_value.get()]
+        tool = TOOLS[tool_id_from_name(self.tool_value.get())]
         self.mode_box["values"] = tool["modes"]
         self.mode_value.set(tool["modes"][0])
         for widget in self.parameter_frame.winfo_children():
@@ -102,7 +110,7 @@ class CipherToolApp(ttk.Frame):
             value = tk.StringVar(value=defaults.get(name, ""))
             ttk.Entry(self.parameter_frame, textvariable=value).grid(row=row, column=1, sticky="ew", pady=4)
             self.parameter_values[name] = value
-        if self.tool_value.get() in {"caesar", "affine", "vigenere", "substitution", "playfair"}:
+        if tool_id_from_name(self.tool_value.get()) in {"caesar", "affine", "vigenere", "substitution", "playfair"}:
             self.random_button.state(["!disabled"])
         else:
             self.random_button.state(["disabled"])
@@ -111,7 +119,7 @@ class CipherToolApp(ttk.Frame):
         """Run the selected operation and show any validation error."""
         parameters = {name: value.get() for name, value in self.parameter_values.items()}
         try:
-            result = run_tool(self.tool_value.get(), self.mode_value.get(), self.input_box.get("1.0", "end-1c"), parameters)
+            result = run_tool(tool_id_from_name(self.tool_value.get()), self.mode_value.get(), self.input_box.get("1.0", "end-1c"), parameters)
         except ValueError as error:
             messagebox.showerror("輸入錯誤", str(error), parent=self.root)
             return
@@ -127,7 +135,7 @@ class CipherToolApp(ttk.Frame):
 
     def _randomize(self) -> None:
         """Fill the current form with generated key or parameter values."""
-        for name, value in generate_parameters(self.tool_value.get()).items():
+        for name, value in generate_parameters(tool_id_from_name(self.tool_value.get())).items():
             self.parameter_values[name].set(value)
 
     def _clear(self) -> None:
