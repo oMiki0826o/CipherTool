@@ -4,7 +4,7 @@ import secrets
 import string
 from typing import Callable
 
-from .ciphers import alberti, affine, atbash, autokey, bacon, beaufort, caesar, columnar, hill, kamasutra, pigpen, playfair, polybius, rail_fence, rot13, scytale, substitution, vigenere
+from .ciphers import alberti, affine, atbash, autokey, bacon, beaufort, caesar, columnar, enigma, hill, kamasutra, pigpen, playfair, polybius, rail_fence, rot13, scytale, substitution, vigenere
 from .conversion import number_base, text
 from .encoding import base16, base32, base64_codec, morse, url_encoding
 
@@ -39,6 +39,7 @@ TOOLS: dict[str, dict[str, object]] = {
     "kamasutra": {"name": "Kamasutra Cipher", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("pairs",), "runner": lambda m, v, p: _cipher_runner(kamasutra, m, v, p, ("pairs",))},
     "hill": {"name": "Hill Cipher (2×2)", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("matrix",), "runner": lambda m, v, p: _cipher_runner(hill, m, v, p, ("matrix",))},
     "alberti": {"name": "Alberti Cipher Disk", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("position",), "runner": lambda m, v, p: _cipher_runner(alberti, m, v, p, ("position",))},
+    "enigma": {"name": "Enigma I Simulator", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("positions",), "runner": lambda m, v, p: _cipher_runner(enigma, m, v, p, ("positions",))},
     "base16": {"name": "Base16 / Hex", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base16, m, v, p)},
     "base32": {"name": "Base32", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base32, m, v, p)},
     "base64": {"name": "Base64", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base64_codec, m, v, p)},

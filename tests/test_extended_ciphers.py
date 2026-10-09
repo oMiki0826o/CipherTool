@@ -2,7 +2,7 @@
 
 import unittest
 
-from cipher_tool.ciphers import alberti, autokey, beaufort, columnar, hill, kamasutra, polybius, scytale
+from cipher_tool.ciphers import alberti, autokey, beaufort, columnar, enigma, hill, kamasutra, polybius, scytale
 
 
 class ExtendedCipherTest(unittest.TestCase):
@@ -53,6 +53,12 @@ class ExtendedCipherTest(unittest.TestCase):
         """Alberti disk simulation uses a configurable inner-disk position."""
         ciphertext = alberti.encrypt("HELLO", 7)
         self.assertEqual(alberti.decrypt(ciphertext, 7), "HELLO")
+
+    def test_enigma_known_vector_and_reciprocity(self) -> None:
+        """Default Enigma I I/II/III and reflector B matches a known vector."""
+        ciphertext = enigma.encrypt("HELLOWORLD", "AAA")
+        self.assertEqual(ciphertext, "ILBDAAMTAZ")
+        self.assertEqual(enigma.decrypt(ciphertext, "AAA"), "HELLOWORLD")
 
 
 if __name__ == "__main__":
