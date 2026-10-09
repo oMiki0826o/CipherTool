@@ -4,7 +4,7 @@ import secrets
 import string
 from typing import Callable
 
-from .ciphers import affine, atbash, bacon, caesar, pigpen, playfair, rail_fence, rot13, substitution, vigenere
+from .ciphers import affine, atbash, bacon, beaufort, caesar, columnar, pigpen, playfair, polybius, rail_fence, rot13, scytale, substitution, vigenere
 from .conversion import number_base, text
 from .encoding import base16, base32, base64_codec, morse, url_encoding
 
@@ -16,7 +16,7 @@ def _cipher_runner(module: object, mode: str, value: str, parameters: dict[str, 
     function = getattr(module, mode)
     arguments: list[object] = [value]
     for name in names:
-        arguments.append(int(parameters[name]) if name in {"shift", "a", "b", "rails"} else parameters[name])
+        arguments.append(int(parameters[name]) if name in {"shift", "a", "b", "rails", "columns"} else parameters[name])
     return function(*arguments)
 
 
@@ -31,6 +31,10 @@ TOOLS: dict[str, dict[str, object]] = {
     "playfair": {"name": "Playfair Cipher", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("keyword",), "runner": lambda m, v, p: _cipher_runner(playfair, m, v, p, ("keyword",))},
     "bacon": {"name": "Bacon Cipher", "category": "Classical Cipher", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(bacon, m, v, p)},
     "pigpen": {"name": "Pigpen Cipher", "category": "Classical Cipher", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(pigpen, m, v, p)},
+    "polybius": {"name": "Polybius Square", "category": "Classical Cipher", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(polybius, m, v, p)},
+    "beaufort": {"name": "Beaufort Cipher", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("key",), "runner": lambda m, v, p: _cipher_runner(beaufort, m, v, p, ("key",))},
+    "columnar": {"name": "Columnar Transposition", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("key",), "runner": lambda m, v, p: _cipher_runner(columnar, m, v, p, ("key",))},
+    "scytale": {"name": "Scytale", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("columns",), "runner": lambda m, v, p: _cipher_runner(scytale, m, v, p, ("columns",))},
     "base16": {"name": "Base16 / Hex", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base16, m, v, p)},
     "base32": {"name": "Base32", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base32, m, v, p)},
     "base64": {"name": "Base64", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base64_codec, m, v, p)},

@@ -16,6 +16,11 @@ class RegistryTest(unittest.TestCase):
         """Registry keeps numeric base conversion separate from text hex."""
         self.assertEqual(run_tool("number_base", "convert", "255", {"from_base": "10", "to_base": "16"}), "FF")
 
+    def test_dispatches_scytale_with_column_parameter(self) -> None:
+        """Registry converts the Scytale column entry to an integer."""
+        ciphertext = run_tool("scytale", "encrypt", "MEETMEATNOON", {"columns": "4"})
+        self.assertEqual(run_tool("scytale", "decrypt", ciphertext, {"columns": "4"}), "MEETMEATNOON")
+
     def test_rejects_unknown_tool(self) -> None:
         """Unknown tool identifiers do not silently fall through."""
         with self.assertRaises(ValueError):
