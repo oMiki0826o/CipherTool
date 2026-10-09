@@ -13,3 +13,6 @@ dependencies = []
 
 [project.scripts]
 ciphertool = "cipher_tool:main"
+
+[tool.setuptools.packages.find]
+include = ["cipher_tool*"]
