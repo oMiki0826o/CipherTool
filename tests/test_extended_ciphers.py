@@ -2,7 +2,7 @@
 
 import unittest
 
-from cipher_tool.ciphers import alberti, autokey, beaufort, columnar, enigma, hill, kamasutra, polybius, scytale
+from cipher_tool.ciphers import alberti, autokey, beaufort, cardano, columnar, enigma, hill, kamasutra, polybius, scytale
 
 
 class ExtendedCipherTest(unittest.TestCase):
@@ -59,6 +59,11 @@ class ExtendedCipherTest(unittest.TestCase):
         ciphertext = enigma.encrypt("HELLOWORLD", "AAA")
         self.assertEqual(ciphertext, "ILBDAAMTAZ")
         self.assertEqual(enigma.decrypt(ciphertext, "AAA"), "HELLOWORLD")
+
+    def test_cardano_round_trip_with_padding(self) -> None:
+        """Cardano's fixed 4x4 turning grille restores padded blocks."""
+        ciphertext = cardano.encrypt("MEETMEATNOON")
+        self.assertEqual(cardano.decrypt(ciphertext), "MEETMEATNOONXXXX")
 
 
 if __name__ == "__main__":
