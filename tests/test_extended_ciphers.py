@@ -2,7 +2,7 @@
 
 import unittest
 
-from cipher_tool.ciphers import autokey, beaufort, columnar, kamasutra, polybius, scytale
+from cipher_tool.ciphers import autokey, beaufort, columnar, hill, kamasutra, polybius, scytale
 
 
 class ExtendedCipherTest(unittest.TestCase):
@@ -37,6 +37,17 @@ class ExtendedCipherTest(unittest.TestCase):
         """Kamasutra swaps letters according to thirteen explicit pairs."""
         pairs = "AM,BX,CQ,DW,ET,FR,GS,HL,IO,JP,KN,UV,YZ"
         self.assertEqual(kamasutra.decrypt(kamasutra.encrypt("ATTACK", pairs), pairs), "ATTACK")
+
+    def test_hill_two_by_two_round_trip(self) -> None:
+        """Hill cipher encrypts and decrypts with an invertible 2x2 key."""
+        key = "3,3,2,5"
+        self.assertEqual(hill.encrypt("HELP", key), "HIAT")
+        self.assertEqual(hill.decrypt("HIAT", key), "HELP")
+
+    def test_hill_rejects_noninvertible_matrix(self) -> None:
+        """A Hill key must have a determinant invertible modulo 26."""
+        with self.assertRaises(ValueError):
+            hill.encrypt("HELP", "2,4,2,4")
 
 
 if __name__ == "__main__":

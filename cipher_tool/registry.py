@@ -4,7 +4,7 @@ import secrets
 import string
 from typing import Callable
 
-from .ciphers import affine, atbash, autokey, bacon, beaufort, caesar, columnar, kamasutra, pigpen, playfair, polybius, rail_fence, rot13, scytale, substitution, vigenere
+from .ciphers import affine, atbash, autokey, bacon, beaufort, caesar, columnar, hill, kamasutra, pigpen, playfair, polybius, rail_fence, rot13, scytale, substitution, vigenere
 from .conversion import number_base, text
 from .encoding import base16, base32, base64_codec, morse, url_encoding
 
@@ -37,6 +37,7 @@ TOOLS: dict[str, dict[str, object]] = {
     "scytale": {"name": "Scytale", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("columns",), "runner": lambda m, v, p: _cipher_runner(scytale, m, v, p, ("columns",))},
     "autokey": {"name": "Autokey Cipher", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("key",), "runner": lambda m, v, p: _cipher_runner(autokey, m, v, p, ("key",))},
     "kamasutra": {"name": "Kamasutra Cipher", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("pairs",), "runner": lambda m, v, p: _cipher_runner(kamasutra, m, v, p, ("pairs",))},
+    "hill": {"name": "Hill Cipher (2×2)", "category": "Classical Cipher", "modes": ("encrypt", "decrypt"), "parameters": ("matrix",), "runner": lambda m, v, p: _cipher_runner(hill, m, v, p, ("matrix",))},
     "base16": {"name": "Base16 / Hex", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base16, m, v, p)},
     "base32": {"name": "Base32", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base32, m, v, p)},
     "base64": {"name": "Base64", "category": "Encoding", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: _cipher_runner(base64_codec, m, v, p)},
