@@ -2,7 +2,7 @@
 
 import unittest
 
-from cipher_tool.ciphers import beaufort, columnar, polybius, scytale
+from cipher_tool.ciphers import autokey, beaufort, columnar, kamasutra, polybius, scytale
 
 
 class ExtendedCipherTest(unittest.TestCase):
@@ -27,6 +27,16 @@ class ExtendedCipherTest(unittest.TestCase):
         """Scytale restores text when both parties use the same column count."""
         ciphertext = scytale.encrypt("MEETMEATNOON", 4)
         self.assertEqual(scytale.decrypt(ciphertext, 4), "MEETMEATNOON")
+
+    def test_autokey_round_trip(self) -> None:
+        """Autokey extends its seed key with plaintext during encryption."""
+        ciphertext = autokey.encrypt("ATTACKATDAWN", "QUEENLY")
+        self.assertEqual(autokey.decrypt(ciphertext, "QUEENLY"), "ATTACKATDAWN")
+
+    def test_kamasutra_round_trip(self) -> None:
+        """Kamasutra swaps letters according to thirteen explicit pairs."""
+        pairs = "AM,BX,CQ,DW,ET,FR,GS,HL,IO,JP,KN,UV,YZ"
+        self.assertEqual(kamasutra.decrypt(kamasutra.encrypt("ATTACK", pairs), pairs), "ATTACK")
 
 
 if __name__ == "__main__":
