@@ -7,6 +7,7 @@ from typing import Callable
 from .ciphers import alberti, affine, atbash, autokey, bacon, beaufort, caesar, cardano, columnar, enigma, hill, kamasutra, pigpen, playfair, polybius, rail_fence, rot13, scytale, substitution, vigenere
 from .conversion import number_base, text
 from .encoding import base16, base32, base64_codec, morse, url_encoding
+from . import integrity
 
 ToolRunner = Callable[[str, str, dict[str, str]], str]
 
@@ -51,6 +52,17 @@ TOOLS: dict[str, dict[str, object]] = {
     "text_binary": {"name": "Text ↔ Binary", "category": "Text Conversion", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: text.text_to_binary(v) if m == "encode" else text.binary_to_text(v)},
     "text_ascii": {"name": "Text ↔ ASCII", "category": "Text Conversion", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: text.text_to_ascii(v) if m == "encode" else text.ascii_to_text(v)},
     "code_points": {"name": "Unicode Code Point", "category": "Text Conversion", "modes": ("encode", "decode"), "parameters": (), "runner": lambda m, v, p: text.text_to_code_points(v) if m == "encode" else text.code_points_to_text(v)},
+    "isbn10": {"name": "ISBN-10 Check Digit", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.isbn10_check_digit(v)},
+    "isbn13": {"name": "ISBN-13 Check Digit", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.isbn13_check_digit(v)},
+    "luhn": {"name": "Luhn Check Digit", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.luhn_check_digit(v)},
+    "xor": {"name": "XOR Checksum", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.xor_checksum(v)},
+    "parity_even": {"name": "Even Parity Bit", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.parity_bit(v, "even")},
+    "parity_odd": {"name": "Odd Parity Bit", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.parity_bit(v, "odd")},
+    "crc3": {"name": "CRC-3 (0xB)", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.crc3(v)},
+    "crc8": {"name": "CRC-8", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.crc8(v)},
+    "crc16": {"name": "CRC-16/CCITT-FALSE", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.crc16(v)},
+    "crc32": {"name": "CRC-32", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.crc32(v)},
+    "sha256": {"name": "SHA-256", "category": "Checksum / Integrity", "modes": ("calculate",), "parameters": (), "runner": lambda m, v, p: integrity.sha256(v)},
 }
 
 

@@ -19,6 +19,7 @@ CipherTool 是一個使用 Python 製作的輕量工具，目標是提供古典�
 - 古典密碼：Caesar、ROT13、Atbash、Affine、Vigenère、Beaufort、Autokey、Simple Substitution、Pigpen、Polybius、Rail Fence、Columnar Transposition、Scytale、Playfair、Bacon、Kamasutra、Hill、Alberti、Cardano Grille、Enigma I。
 - 編碼：Base16、Base32、Base64、Morse、URL Encoding。
 - 轉換：2～36 進位、UTF-8 Text ↔ Binary、Text ↔ Hex、Text ↔ ASCII、Unicode Code Point。
+- 完整性檢查：ISBN-10／13、Luhn、XOR、Parity、CRC-3／8／16／32、SHA-256。
 - Tkinter 圖形介面：依類型與方法顯示模式和參數，支援執行、複製與清除。
 
 ## 安裝與啟動
@@ -54,6 +55,7 @@ CipherTool is a lightweight Python tool for classical ciphers, common encodings,
 - Classical ciphers: Caesar, ROT13, Atbash, Affine, Vigenère, Beaufort, Autokey, Simple Substitution, Pigpen, Polybius, Rail Fence, Columnar Transposition, Scytale, Playfair, Bacon, Kamasutra, Hill, Alberti, Cardano Grille, and Enigma I.
 - Encodings: Base16, Base32, Base64, Morse, and URL Encoding.
 - Conversions: bases 2 through 36, UTF-8 Text ↔ Binary, Text ↔ Hex, Text ↔ ASCII, and Unicode code points.
+- Integrity checks: ISBN-10/13, Luhn, XOR, parity, CRC-3/8/16/32, and SHA-256.
 - Tkinter GUI with dynamic tool parameters, execute, copy, and clear actions.
 
 ### Install and run

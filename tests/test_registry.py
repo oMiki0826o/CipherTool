@@ -21,6 +21,10 @@ class RegistryTest(unittest.TestCase):
         ciphertext = run_tool("scytale", "encrypt", "MEETMEATNOON", {"columns": "4"})
         self.assertEqual(run_tool("scytale", "decrypt", ciphertext, {"columns": "4"}), "MEETMEATNOON")
 
+    def test_dispatches_integrity_tool(self) -> None:
+        """Registry exposes checksum calculations to the GUI."""
+        self.assertEqual(run_tool("crc3", "calculate", "A", {}), "3")
+
     def test_rejects_unknown_tool(self) -> None:
         """Unknown tool identifiers do not silently fall through."""
         with self.assertRaises(ValueError):
