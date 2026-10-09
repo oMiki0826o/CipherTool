@@ -2,7 +2,7 @@
 
 import unittest
 
-from cipher_tool.ciphers import autokey, beaufort, columnar, hill, kamasutra, polybius, scytale
+from cipher_tool.ciphers import alberti, autokey, beaufort, columnar, hill, kamasutra, polybius, scytale
 
 
 class ExtendedCipherTest(unittest.TestCase):
@@ -48,6 +48,11 @@ class ExtendedCipherTest(unittest.TestCase):
         """A Hill key must have a determinant invertible modulo 26."""
         with self.assertRaises(ValueError):
             hill.encrypt("HELP", "2,4,2,4")
+
+    def test_alberti_round_trip(self) -> None:
+        """Alberti disk simulation uses a configurable inner-disk position."""
+        ciphertext = alberti.encrypt("HELLO", 7)
+        self.assertEqual(alberti.decrypt(ciphertext, 7), "HELLO")
 
 
 if __name__ == "__main__":

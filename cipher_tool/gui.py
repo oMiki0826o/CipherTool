@@ -16,6 +16,7 @@ PARAMETER_LABELS = {
     "columns": "欄位數",
     "pairs": "字母配對表",
     "matrix": "2×2 矩陣",
+    "position": "內圈位置",
     "from_base": "來源進位",
     "to_base": "目標進位",
 }
@@ -107,7 +108,7 @@ class CipherToolApp(ttk.Frame):
         for widget in self.parameter_frame.winfo_children():
             widget.destroy()
         self.parameter_values = {}
-        defaults = {"shift": "3", "a": "5", "b": "8", "rails": "3", "columns": "4", "pairs": "AM,BX,CQ,DW,ET,FR,GS,HL,IO,JP,KN,UV,YZ", "matrix": "3,3,2,5", "from_base": "10", "to_base": "16"}
+        defaults = {"shift": "3", "a": "5", "b": "8", "rails": "3", "columns": "4", "pairs": "AM,BX,CQ,DW,ET,FR,GS,HL,IO,JP,KN,UV,YZ", "matrix": "3,3,2,5", "position": "3", "from_base": "10", "to_base": "16"}
         for row, name in enumerate(tool["parameters"]):
             ttk.Label(self.parameter_frame, text=PARAMETER_LABELS.get(name, name)).grid(row=row, column=0, sticky="w", pady=4)
             value = tk.StringVar(value=defaults.get(name, ""))
