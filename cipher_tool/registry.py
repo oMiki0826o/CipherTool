@@ -1,5 +1,7 @@
 """Register CipherTool operations and dispatch them through stable APIs."""
 
+import secrets
+import string
 from typing import Callable
 
 from .ciphers import affine, atbash, bacon, caesar, pigpen, playfair, rail_fence, rot13, substitution, vigenere
@@ -50,3 +52,21 @@ def run_tool(tool_id: str, mode: str, value: str, parameters: dict[str, str]) ->
     if mode not in tool["modes"]:
         raise ValueError("此工具不支援指定模式。")
     return tool["runner"](mode, value, parameters)
+
+
+def generate_parameters(tool_id: str) -> dict[str, str]:
+    """Generate secure random parameters for ciphers that support them."""
+    if tool_id == "caesar":
+        return {"shift": str(secrets.randbelow(25) + 1)}
+    if tool_id == "affine":
+        multiplier = secrets.choice((1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25))
+        return {"a": str(multiplier), "b": str(secrets.randbelow(26))}
+    if tool_id == "vigenere":
+        return {"key": "".join(secrets.choice(string.ascii_uppercase) for _ in range(8))}
+    if tool_id == "substitution":
+        letters = list(string.ascii_uppercase)
+        secrets.SystemRandom().shuffle(letters)
+        return {"substitution_alphabet": "".join(letters)}
+    if tool_id == "playfair":
+        return {"keyword": "".join(secrets.choice(string.ascii_uppercase) for _ in range(8))}
+    raise ValueError("此工具不支援隨機參數。")

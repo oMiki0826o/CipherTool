@@ -3,7 +3,7 @@
 import tkinter as tk
 from tkinter import messagebox, ttk
 
-from .registry import TOOLS, run_tool
+from .registry import TOOLS, generate_parameters, run_tool
 
 
 class CipherToolApp(ttk.Frame):
@@ -53,6 +53,8 @@ class CipherToolApp(ttk.Frame):
         buttons = ttk.Frame(self)
         buttons.grid(row=6, column=0, columnspan=2, sticky="ew", pady=8)
         ttk.Button(buttons, text="執行", command=self._run).pack(side="left")
+        self.random_button = ttk.Button(buttons, text="隨機產生", command=self._randomize)
+        self.random_button.pack(side="left", padx=6)
         ttk.Button(buttons, text="複製結果", command=self._copy_output).pack(side="left", padx=6)
         ttk.Button(buttons, text="清除", command=self._clear).pack(side="left")
 
@@ -88,6 +90,10 @@ class CipherToolApp(ttk.Frame):
             value = tk.StringVar(value=defaults.get(name, ""))
             ttk.Entry(self.parameter_frame, textvariable=value).grid(row=row, column=1, sticky="ew", pady=4)
             self.parameter_values[name] = value
+        if self.tool_value.get() in {"caesar", "affine", "vigenere", "substitution", "playfair"}:
+            self.random_button.state(["!disabled"])
+        else:
+            self.random_button.state(["disabled"])
 
     def _run(self) -> None:
         """Run the selected operation and show any validation error."""
@@ -106,6 +112,11 @@ class CipherToolApp(ttk.Frame):
         """Copy the current output to the system clipboard."""
         self.root.clipboard_clear()
         self.root.clipboard_append(self.output_box.get("1.0", "end-1c"))
+
+    def _randomize(self) -> None:
+        """Fill the current form with generated key or parameter values."""
+        for name, value in generate_parameters(self.tool_value.get()).items():
+            self.parameter_values[name].set(value)
 
     def _clear(self) -> None:
         """Clear both text areas while retaining the current tool settings."""
